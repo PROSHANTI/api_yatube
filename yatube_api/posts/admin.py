@@ -23,6 +23,7 @@ class CommentAdmin(admin.ModelAdmin):
         'text',
     )
 
+
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
     list_display = (

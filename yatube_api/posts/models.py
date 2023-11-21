@@ -67,6 +67,7 @@ class Comment(models.Model):
     def __str__(self):
         return self.text
 
+
 class Follow(models.Model):
     user = models.ForeignKey(
         User,
@@ -88,6 +89,7 @@ class Follow(models.Model):
                 name='check_follow_self'
             )
         ]
+
 
     def __str__(self):
         return self.text
