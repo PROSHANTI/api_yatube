@@ -1,3 +1,4 @@
+from django.db.models import CheckConstraint, Q, F
 from django.contrib.auth import get_user_model
 from django.db import models
 
@@ -8,6 +9,10 @@ class Group(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     description = models.TextField()
+
+    class Meta:
+        verbose_name = 'Группа'
+        verbose_name_plural = 'Группы'
 
     def __str__(self):
         return self.title
@@ -37,6 +42,11 @@ class Post(models.Model):
         null=True
     )
 
+    class Meta:
+        ordering = ['pub_date']
+        verbose_name = 'Пост'
+        verbose_name_plural = 'Посты'
+
     def __str__(self):
         return self.text
 
@@ -50,6 +60,12 @@ class Comment(models.Model):
     created = models.DateTimeField(
         'Дата добавления', auto_now_add=True, db_index=True)
 
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+
+    def __str__(self):
+        return self.text
 
 class Follow(models.Model):
     user = models.ForeignKey(
@@ -66,5 +82,12 @@ class Follow(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=['following', 'user'], name='unique_follow'
+            ),
+            CheckConstraint(
+                check=~Q(user=F('following')),
+                name='check_follow_self'
             )
         ]
+
+    def __str__(self):
+        return self.text
