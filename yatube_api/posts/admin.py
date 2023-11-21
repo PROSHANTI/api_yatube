@@ -32,4 +32,5 @@ class GroupAdmin(admin.ModelAdmin):
         'description',
     )
 
+
 admin.site.empty_value_display = 'Не задано'
