@@ -64,7 +64,6 @@ class FollowViewSet(mixins.CreateModelMixin,
                           IsAuthorOrReadOnly)
     filter_backends = (filters.SearchFilter,)
     search_fields = ('following__username',)
-    http_method_names = ['get', 'post']
 
     def get_queryset(self):
         return self.request.user.follower.all()

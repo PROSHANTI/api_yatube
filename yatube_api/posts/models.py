@@ -89,6 +89,3 @@ class Follow(models.Model):
                 name='check_follow_self'
             )
         ]
-
-    def __str__(self):
-        return self.text
